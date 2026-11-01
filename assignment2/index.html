@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="TribalConnect - A simple digital learning platform for tribal school students in Wayanad, providing lessons, quizzes and study materials in Malayalam and English." />
+    <title>TribalConnect - Digital Learning for Tribal Students</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/mustache@4.2.0/mustache.min.js"></script>
+</head>
+
+<body>
+
+    <header>
+        <div class="header-inner">
+            <div class="logo">
+                <span class="logo-icon">📚</span>
+                <div>
+                    <h1>TribalConnect</h1>
+                    <p class="tagline">ആദിവാസി വിദ്യാർഥികൾക്കായുള്ള ഡിജിറ്റൽ പഠനം &nbsp;|&nbsp; Learning for Every
+                        Student</p>
+                </div>
+            </div>
+            <nav aria-label="Main navigation">
+                <ul>
+                    <li><a href="#lessons" class="nav-link active">Lessons</a></li>
+                    <li><a href="#quizzes" class="nav-link">Quizzes</a></li>
+                    <li><a href="#students" class="nav-link">Students</a></li>
+                    <li><a href="#scholarships" class="nav-link">Scholarships</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- Hero Banner -->
+        <section class="hero" aria-label="Welcome banner">
+            <div class="hero-text">
+                <h2>Welcome to TribalConnect</h2>
+                <p>Access lessons, practice quizzes and study materials assigned by your teacher — even with limited
+                    internet access.</p>
+            </div>
+        </section>
+
+        <!-- Loading and Error States -->
+        <div id="loading-msg" class="loading-msg" role="status" aria-live="polite">
+            ⏳ Loading content, please wait...
+        </div>
+        <div id="error-msg" class="error-msg hidden" role="alert" aria-live="assertive"></div>
+
+        <!-- Search Bar (hidden until data loads) -->
+        <section class="search-section hidden" id="search-section" aria-label="Search">
+            <div class="search-box">
+                <label for="searchInput" class="sr-only">Search lessons, quizzes or students</label>
+                <input type="search" id="searchInput" placeholder="🔍  Search lessons, quizzes, students..."
+                    autocomplete="off" />
+            </div>
+            <p id="searchStatus" class="search-status" aria-live="polite"></p>
+        </section>
+
+        <!-- Lessons Section -->
+        <section id="lessons" class="hidden" aria-labelledby="lessons-heading">
+            <h2 id="lessons-heading" class="section-title">📖 Lessons</h2>
+            <div id="lessons-container" class="card-grid" role="list" aria-label="Lesson cards"></div>
+        </section>
+
+        <!-- Quizzes Section -->
+        <section id="quizzes" class="hidden" aria-labelledby="quizzes-heading">
+            <h2 id="quizzes-heading" class="section-title">✏️ Quizzes</h2>
+            <div id="quizzes-container" class="card-grid" role="list" aria-label="Quiz cards"></div>
+        </section>
+
+        <!-- Students Section -->
+        <section id="students" class="hidden" aria-labelledby="students-heading">
+            <h2 id="students-heading" class="section-title">🎓 Students</h2>
+            <div id="students-container" class="card-grid" role="list" aria-label="Student cards"></div>
+        </section>
+
+        <!-- Scholarships Section -->
+        <section id="scholarships" class="hidden" aria-labelledby="scholarships-heading">
+            <h2 id="scholarships-heading" class="section-title">🏅 Scholarships & Skill Courses</h2>
+            <div id="scholarships-container" class="card-grid" role="list" aria-label="Scholarship cards"></div>
+        </section>
+
+        <!-- No Results Message -->
+        <div id="no-results" class="no-results hidden" role="alert" aria-live="assertive">
+            <p>No results found for your search. Please try a different keyword.</p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <p>&copy; 2026 TribalConnect &mdash; Digital Learning for Tribal Students, Wayanad</p>
+            <p class="footer-note">Designed to work in low-connectivity environments &nbsp;|&nbsp; ആദിവാസി
+                വിദ്യാർഥികൾക്കായി</p>
+        </div>
+    </footer>
+
+    <!-- Mustache Templates -->
+    <script id="lesson-template" type="text/template">
+    {{#items}}
+    <article class="card lesson-card" role="listitem">
+      <div class="card-header">
+        <span class="badge badge-lesson">Lesson</span>
+        <span class="card-subject">{{subject}}</span>
+      </div>
+      <h3 class="card-title">{{title}}</h3>
+      <p class="card-desc">{{description}}</p>
+      <div class="card-meta">
+        <span>📅 {{date}}</span>
+        <span>🏫 {{grade}}</span>
+        <span>👨‍🏫 {{teacher}}</span>
+      </div>
+      {{#videoUrl}}
+      <a href="{{videoUrl}}" class="btn-secondary" target="_blank" rel="noopener">▶ Watch Video</a>
+      {{/videoUrl}}
+    </article>
+    {{/items}}
+  </script>
+
+    <script id="quiz-template" type="text/template">
+    {{#items}}
+    <article class="card quiz-card" role="listitem">
+      <div class="card-header">
+        <span class="badge badge-quiz">Quiz</span>
+        <span class="card-subject">{{subject}}</span>
+      </div>
+      <h3 class="card-title">{{title}}</h3>
+      <p class="card-desc">{{description}}</p>
+      <div class="card-meta">
+        <span>❓ {{questionCount}} Questions</span>
+        <span>⏱ {{duration}} mins</span>
+        <span>🏫 {{grade}}</span>
+      </div>
+    </article>
+    {{/items}}
+  </script>
+
+    <script id="student-template" type="text/template">
+    {{#items}}
+    <article class="card student-card" role="listitem">
+      <div class="card-header">
+        <span class="badge badge-student">Student</span>
+        <span class="card-subject">{{grade}}</span>
+      </div>
+      <h3 class="card-title">{{name}}</h3>
+      <p class="card-desc">{{bio}}</p>
+      <div class="card-meta">
+        <span>🏫 {{school}}</span>
+        <span>📍 {{village}}</span>
+      </div>
+      <div class="skills-list">
+        {{#skills}}
+        <span class="skill-tag">{{.}}</span>
+        {{/skills}}
+      </div>
+    </article>
+    {{/items}}
+  </script>
+
+    <script id="scholarship-template" type="text/template">
+    {{#items}}
+    <article class="card scholarship-card" role="listitem">
+      <div class="card-header">
+        <span class="badge badge-scholarship">{{category}}</span>
+      </div>
+      <h3 class="card-title">{{title}}</h3>
+      <p class="card-desc">{{description}}</p>
+      <div class="card-meta">
+        <span>📅 Deadline: {{deadline}}</span>
+        <span>🎯 For: {{eligibility}}</span>
+      </div>
+    </article>
+    {{/items}}
+  </script>
+
+    <script src="app.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,186 @@
+{
+  "graph": [
+    {
+      "id": "lesson-001",
+      "type": "Lesson",
+      "title": "Introduction to Natural Numbers",
+      "subject": "Mathematics",
+      "description": "Learn what natural numbers are, how to count and arrange them in order. Includes simple examples from daily life in Wayanad.",
+      "grade": "Class 5",
+      "teacher": "Smt. Suma K.",
+      "date": "2026-10-01",
+      "videoUrl": ""
+    },
+    {
+      "id": "lesson-002",
+      "type": "Lesson",
+      "title": "Our Environment - Forests and Plants",
+      "subject": "Environmental Science",
+      "description": "Study the importance of forests, types of plants found in Wayanad and the relationship between humans and nature.",
+      "grade": "Class 4",
+      "teacher": "Sri. Manoj P.",
+      "date": "2026-10-03",
+      "videoUrl": ""
+    },
+    {
+      "id": "lesson-003",
+      "type": "Lesson",
+      "title": "Malayalam Alphabets - Vowels",
+      "subject": "Malayalam",
+      "description": "Practice writing and reading Malayalam vowels (swarangal). Worksheets available for download. Swarangal padikam.",
+      "grade": "Class 3",
+      "teacher": "Smt. Latha R.",
+      "date": "2026-10-05",
+      "videoUrl": ""
+    },
+    {
+      "id": "lesson-004",
+      "type": "Lesson",
+      "title": "Simple Addition and Subtraction",
+      "subject": "Mathematics",
+      "description": "Practice adding and subtracting two-digit numbers using the column method. Exercises included with answers.",
+      "grade": "Class 4",
+      "teacher": "Smt. Suma K.",
+      "date": "2026-10-07",
+      "videoUrl": ""
+    },
+    {
+      "id": "lesson-005",
+      "type": "Lesson",
+      "title": "Our Body - Organs and Their Functions",
+      "subject": "Science",
+      "description": "Learn about the major organs of the human body - heart, lungs, stomach - and what they do to keep us healthy.",
+      "grade": "Class 5",
+      "teacher": "Sri. Arun V.",
+      "date": "2026-10-08",
+      "videoUrl": ""
+    },
+    {
+      "id": "lesson-006",
+      "type": "Lesson",
+      "title": "Water Conservation and Rain",
+      "subject": "Environmental Science",
+      "description": "Understand the water cycle, importance of rain, and how tribal communities in Wayanad conserve water traditionally.",
+      "grade": "Class 6",
+      "teacher": "Sri. Manoj P.",
+      "date": "2026-10-10",
+      "videoUrl": ""
+    },
+    {
+      "id": "quiz-001",
+      "type": "Quiz",
+      "title": "Math Quiz - Natural Numbers",
+      "subject": "Mathematics",
+      "description": "Test your understanding of natural numbers, ordering and basic counting.",
+      "grade": "Class 5",
+      "questionCount": 10,
+      "duration": 15
+    },
+    {
+      "id": "quiz-002",
+      "type": "Quiz",
+      "title": "EVS Quiz - Forests and Plants",
+      "subject": "Environmental Science",
+      "description": "Answer questions about forests, plants and environmental conservation based on Lesson 002.",
+      "grade": "Class 4",
+      "questionCount": 8,
+      "duration": 12
+    },
+    {
+      "id": "quiz-003",
+      "type": "Quiz",
+      "title": "Malayalam Vowels Practice",
+      "subject": "Malayalam",
+      "description": "Identify and match Malayalam vowels in this short quiz.",
+      "grade": "Class 3",
+      "questionCount": 6,
+      "duration": 10
+    },
+    {
+      "id": "quiz-004",
+      "type": "Quiz",
+      "title": "Science Quiz - Human Body",
+      "subject": "Science",
+      "description": "Questions on major body organs, their names and basic functions.",
+      "grade": "Class 5",
+      "questionCount": 10,
+      "duration": 15
+    },
+    {
+      "id": "student-001",
+      "type": "Student",
+      "name": "Rajan M.",
+      "grade": "Class 5",
+      "school": "GTHS Edavaka",
+      "village": "Meppadi",
+      "bio": "A curious learner from Meppadi who enjoys mathematics and drawing.",
+      "skills": ["Mathematics", "Drawing", "Malayalam Reading"]
+    },
+    {
+      "id": "student-002",
+      "type": "Student",
+      "name": "Lakshmi A.",
+      "grade": "Class 4",
+      "school": "GLPS Poothadi",
+      "village": "Poothadi",
+      "bio": "Enjoys learning about plants and nature. Active in quiz practice sessions.",
+      "skills": ["Environmental Science", "Storytelling"]
+    },
+    {
+      "id": "student-003",
+      "type": "Student",
+      "name": "Vishnu K.",
+      "grade": "Class 6",
+      "school": "GTHS Edavaka",
+      "village": "Thirunelly",
+      "bio": "Interested in science and has completed the water conservation lesson module.",
+      "skills": ["Science", "Observation", "Farming Knowledge"]
+    },
+    {
+      "id": "student-004",
+      "type": "Student",
+      "name": "Divya P.",
+      "grade": "Class 3",
+      "school": "GLPS Kalpetta",
+      "village": "Kalpetta",
+      "bio": "Enthusiastic about Malayalam reading and creative writing.",
+      "skills": ["Malayalam", "Creative Writing", "Drawing"]
+    },
+    {
+      "id": "scholarship-001",
+      "type": "Scholarship",
+      "title": "ST Pre-Matric Scholarship",
+      "category": "Scholarship",
+      "description": "Central government scholarship for Scheduled Tribe students studying in Class 1 to 10. Covers tuition, hostel and book allowances.",
+      "deadline": "2026-11-30",
+      "eligibility": "Class 1-10 ST Students"
+    },
+    {
+      "id": "scholarship-002",
+      "type": "Scholarship",
+      "title": "Kerala Tribal Welfare Scholarship",
+      "category": "Scholarship",
+      "description": "State government scholarship for tribal students in Kerala. Apply through the ITDP office or tribal welfare portal.",
+      "deadline": "2026-12-15",
+      "eligibility": "Tribal Students, Kerala"
+    },
+    {
+      "id": "scholarship-003",
+      "type": "SkillCourse",
+      "title": "Basic Computer Skills for Beginners",
+      "category": "Skill Course",
+      "description": "Free 10-hour online course covering basic computer operations, the internet and typing. Available in Malayalam.",
+      "deadline": "Open Enrollment",
+      "eligibility": "All students, Class 5 and above"
+    },
+    {
+      "id": "scholarship-004",
+      "type": "SkillCourse",
+      "title": "Spoken English for Rural Learners",
+      "category": "Skill Course",
+      "description": "A beginner-friendly spoken English course designed for students in rural and tribal areas. Audio-based learning included.",
+      "deadline": "Open Enrollment",
+      "eligibility": "Class 6 and above"
+    }
+  ]
+}

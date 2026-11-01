@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="TribalConnect - A digital learning platform for tribal school students in Wayanad, providing lessons, quizzes and study materials." />
+    <title>TribalConnect - Digital Learning for Tribal Students</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/mustache@4.2.0/mustache.min.js"></script>
+</head>
+
+<body>
+
+    <header>
+        <div class="header-inner">
+            <div class="logo">
+                <span class="logo-icon">📚</span>
+                <div>
+                    <h1>TribalConnect</h1>
+                    <p class="tagline">ആദിവാസി വിദ്യാർഥികൾക്കായുള്ള ഡിജിറ്റൽ പഠനം &nbsp;|&nbsp; Learning for Every
+                        Student</p>
+                </div>
+            </div>
+            <nav aria-label="Main navigation">
+                <ul>
+                    <li><a href="#lessons" class="nav-link active">Lessons</a></li>
+                    <li><a href="#quizzes" class="nav-link">Quizzes</a></li>
+                    <li><a href="#students" class="nav-link">Students</a></li>
+                    <li><a href="#scholarships" class="nav-link">Scholarships</a></li>
+                </ul>
+                <div id="auth-area">
+                    <button id="btn-show-login" class="btn-auth">Teacher Login</button>
+                    <span id="auth-status" class="auth-status hidden">
+                        ✅ Logged in as <strong>Teacher</strong>
+                        <button id="btn-logout" class="btn-logout">Logout</button>
+                    </span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- Hero -->
+        <section class="hero" aria-label="Welcome banner">
+            <div class="hero-text">
+                <h2>Welcome to TribalConnect</h2>
+                <p>Access lessons, practice quizzes and study materials assigned by your teacher — even with limited
+                    internet access.</p>
+            </div>
+        </section>
+
+        <!-- Login Modal -->
+        <div id="login-overlay" class="modal-overlay hidden" role="dialog" aria-modal="true"
+            aria-labelledby="login-heading">
+            <div class="modal">
+                <h2 id="login-heading">Teacher Login</h2>
+                <form id="login-form" novalidate>
+                    <div class="form-group">
+                        <label for="login-username">Username</label>
+                        <input type="text" id="login-username" name="username" autocomplete="username" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" name="password" autocomplete="current-password"
+                            required />
+                    </div>
+                    <p id="login-error" class="form-error hidden" role="alert"></p>
+                    <div class="form-actions">
+                        <button type="submit" id="btn-login" class="btn-primary">Login</button>
+                        <button type="button" id="btn-cancel-login" class="btn-cancel">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Add Lesson Modal (teacher only) -->
+        <div id="add-lesson-overlay" class="modal-overlay hidden" role="dialog" aria-modal="true"
+            aria-labelledby="add-heading">
+            <div class="modal">
+                <h2 id="add-heading" id="modal-form-heading">Add New Lesson</h2>
+                <!-- hidden field for update mode -->
+                <input type="hidden" id="edit-lesson-id" value="" />
+                <form id="add-lesson-form" novalidate>
+                    <div class="form-group">
+                        <label for="f-title">Lesson Title *</label>
+                        <input type="text" id="f-title" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="f-subject">Subject *</label>
+                        <input type="text" id="f-subject" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="f-grade">Grade *</label>
+                        <input type="text" id="f-grade" placeholder="e.g. Class 5" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="f-teacher">Teacher Name *</label>
+                        <input type="text" id="f-teacher" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="f-date">Lesson Date *</label>
+                        <input type="date" id="f-date" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="f-description">Description *</label>
+                        <textarea id="f-description" rows="3" required></textarea>
+                    </div>
+                    <p id="add-form-error" class="form-error hidden" role="alert"></p>
+                    <div class="form-actions">
+                        <button type="submit" id="btn-save-lesson" class="btn-primary">Save Lesson</button>
+                        <button type="button" id="btn-cancel-add" class="btn-cancel">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Loading / Error -->
+        <div id="loading-msg" class="loading-msg" role="status" aria-live="polite">⏳ Loading content, please wait...
+        </div>
+        <div id="error-msg" class="error-msg hidden" role="alert" aria-live="assertive"></div>
+
+        <!-- Teacher toolbar (shown when logged in) -->
+        <div id="teacher-toolbar" class="teacher-toolbar hidden">
+            <p>👩‍🏫 Teacher View &mdash; You can add and edit lessons below.</p>
+            <button id="btn-add-lesson" class="btn-primary">+ Add New Lesson</button>
+        </div>
+
+        <!-- Search -->
+        <section class="search-section hidden" id="search-section" aria-label="Search">
+            <div class="search-box">
+                <label for="searchInput" class="sr-only">Search lessons, quizzes or students</label>
+                <input type="search" id="searchInput" placeholder="🔍  Search lessons, quizzes, students..."
+                    autocomplete="off" />
+            </div>
+            <p id="searchStatus" class="search-status" aria-live="polite"></p>
+        </section>
+
+        <!-- Lessons -->
+        <section id="lessons" class="hidden" aria-labelledby="lessons-heading">
+            <h2 id="lessons-heading" class="section-title">📖 Lessons</h2>
+            <div id="lessons-container" class="card-grid" role="list"></div>
+        </section>
+
+        <!-- Quizzes -->
+        <section id="quizzes" class="hidden" aria-labelledby="quizzes-heading">
+            <h2 id="quizzes-heading" class="section-title">✏️ Quizzes</h2>
+            <div id="quizzes-container" class="card-grid" role="list"></div>
+        </section>
+
+        <!-- Students -->
+        <section id="students" class="hidden" aria-labelledby="students-heading">
+            <h2 id="students-heading" class="section-title">🎓 Students</h2>
+            <div id="students-container" class="card-grid" role="list"></div>
+        </section>
+
+        <!-- Scholarships -->
+        <section id="scholarships" class="hidden" aria-labelledby="scholarships-heading">
+            <h2 id="scholarships-heading" class="section-title">🏅 Scholarships &amp; Skill Courses</h2>
+            <div id="scholarships-container" class="card-grid" role="list"></div>
+        </section>
+
+        <div id="no-results" class="no-results hidden" role="alert" aria-live="assertive">
+            <p>No results found for your search. Please try a different keyword.</p>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <p>&copy; 2026 TribalConnect &mdash; Digital Learning for Tribal Students, Wayanad</p>
+            <p class="footer-note">Designed to work in low-connectivity environments &nbsp;|&nbsp; ആദിവാസി
+                വിദ്യാർഥികൾക്കായി</p>
+        </div>
+    </footer>
+
+    <!-- Mustache Templates -->
+    <script id="lesson-template" type="text/template">
+    {{#items}}
+    <article class="card lesson-card" role="listitem" data-id="{{id}}">
+      <div class="card-header">
+        <span class="badge badge-lesson">Lesson</span>
+        <span class="card-subject">{{subject}}</span>
+      </div>
+      <h3 class="card-title">{{title}}</h3>
+      <p class="card-desc">{{description}}</p>
+      <div class="card-meta">
+        <span>📅 {{date}}</span>
+        <span>🏫 {{grade}}</span>
+        <span>👨‍🏫 {{teacher}}</span>
+      </div>
+      {{#isLoggedIn}}
+      <button class="btn-edit" data-id="{{id}}" data-type="lesson"
+              data-title="{{title}}" data-subject="{{subject}}"
+              data-grade="{{grade}}" data-teacher="{{teacher}}"
+              data-date="{{date}}" data-desc="{{description}}">
+        ✏️ Edit
+      </button>
+      {{/isLoggedIn}}
+    </article>
+    {{/items}}
+  </script>
+
+    <script id="quiz-template" type="text/template">
+    {{#items}}
+    <article class="card quiz-card" role="listitem">
+      <div class="card-header">
+        <span class="badge badge-quiz">Quiz</span>
+        <span class="card-subject">{{subject}}</span>
+      </div>
+      <h3 class="card-title">{{title}}</h3>
+      <p class="card-desc">{{description}}</p>
+      <div class="card-meta">
+        <span>❓ {{questionCount}} Questions</span>
+        <span>⏱ {{duration}} mins</span>
+        <span>🏫 {{grade}}</span>
+      </div>
+    </article>
+    {{/items}}
+  </script>
+
+    <script id="student-template" type="text/template">
+    {{#items}}
+    <article class="card student-card" role="listitem">
+      <div class="card-header">
+        <span class="badge badge-student">Student</span>
+        <span class="card-subject">{{grade}}</span>
+      </div>
+      <h3 class="card-title">{{name}}</h3>
+      <p class="card-desc">{{bio}}</p>
+      <div class="card-meta">
+        <span>🏫 {{school}}</span>
+        <span>📍 {{village}}</span>
+      </div>
+      <div class="skills-list">
+        {{#skills}}
+        <span class="skill-tag">{{.}}</span>
+        {{/skills}}
+      </div>
+    </article>
+    {{/items}}
+  </script>
+
+    <script id="scholarship-template" type="text/template">
+    {{#items}}
+    <article class="card scholarship-card" role="listitem">
+      <div class="card-header">
+        <span class="badge badge-scholarship">{{category}}</span>
+      </div>
+      <h3 class="card-title">{{title}}</h3>
+      <p class="card-desc">{{description}}</p>
+      <div class="card-meta">
+        <span>📅 Deadline: {{deadline}}</span>
+        <span>🎯 For: {{eligibility}}</span>
+      </div>
+    </article>
+    {{/items}}
+  </script>
+
+    <script src="app.js"></script>
+
+</body>
+
+</html>
